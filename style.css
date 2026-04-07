@@ -7,7 +7,7 @@
 
 /* Body */
 body {
-    font-family: 'Segoe UI', sans-serif;
+    font-family: 'Poppins', sans-serif;
     color: #fff;
 }
 
@@ -46,22 +46,22 @@ nav a:hover {
     color: gold;
 }
 
-/* HERO */
+/* HERO SECTION */
 .hero {
     height: 100vh;
-
     display: flex;
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    text-align: center;
+    position: relative;
 
+    /* default background */
     background:
         linear-gradient(rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.7)),
-        url('images/background.png');
+        url('images/background.png') center/cover no-repeat;
 
-    background-size: cover;
-    background-position: center;
-    text-align: center;
+    transition: background 1s ease-in-out;
 }
 
 .hero h2 {
@@ -73,10 +73,38 @@ nav a:hover {
     font-size: 20px;
 }
 
-/* 🔥 PAGE (About / Contact / Profile) */
+/* Manual slide buttons */
+.hero button.prev,
+.hero button.next {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: gold;
+    border: none;
+    font-size: 30px;
+    padding: 10px 15px;
+    cursor: pointer;
+    border-radius: 5px;
+    z-index: 5;
+}
+
+.hero button.prev {
+    left: 20px;
+}
+
+.hero button.next {
+    right: 20px;
+}
+
+.hero button.prev:hover,
+.hero button.next:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+}
+
+/* PAGE (About / Contact / Profile) */
 .page {
     min-height: 100vh;
-
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -88,7 +116,6 @@ nav a:hover {
 
     background-size: cover;
     background-position: center;
-
     text-align: center;
 }
 
@@ -139,7 +166,7 @@ nav a:hover {
     text-decoration: underline;
 }
 
-/* 🔥 Contact DP */
+/* CONTACT DP */
 .contact-dp {
     width: 150px;
     height: 150px;
@@ -162,42 +189,28 @@ nav a:hover {
     text-decoration: none;
 }
 
-/* Mobile */
-@media (max-width: 768px) {
-    nav a {
-        display: block;
-        margin: 8px 0;
-    }
-
-    .hero h2 {
-        font-size: 28px;
-    }
-}
-
-/* 🔥 ABOUT BOX DESIGN */
+/* ABOUT BOX DESIGN */
 .about-box {
     max-width: 800px;
-    background: bacground.png padding: 30px;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 30px;
     border-radius: 15px;
     box-shadow: 0 0 20px rgba(255, 215, 0, 0.5);
     backdrop-filter: blur(5px);
 }
 
-/* headings */
 .about-box h2 {
     color: gold;
     margin-top: 20px;
     margin-bottom: 10px;
 }
 
-/* paragraph */
 .about-box p {
     line-height: 1.7;
     margin-bottom: 15px;
     color: #ddd;
 }
 
-/* list */
 .about-box ul {
     list-style: none;
     margin-top: 10px;
@@ -208,23 +221,15 @@ nav a:hover {
     font-size: 16px;
 }
 
-/* BODY FONT */
-body {
-    font-family: 'Poppins', sans-serif;
-    color: #fff;
-}
-
-/* BACKGROUND */
+/* PROFILE PAGE */
 .profile-page {
     background:
         linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.85)),
         url('images/profile.png');
-
     background-size: cover;
     background-position: center;
 }
 
-/* CENTER */
 .center-box {
     min-height: 100vh;
     display: flex;
@@ -233,55 +238,44 @@ body {
     padding: 20px;
 }
 
-/* CARD */
 .profile-card {
     width: 100%;
     max-width: 550px;
-
     background: #292727bf;
     padding: 35px;
-
     border-radius: 20px;
     backdrop-filter: blur(10px);
-
     box-shadow: 0 0 40px rgba(255, 215, 0, 0.5);
-
     text-align: center;
 }
 
-/* TITLE */
 .profile-card h2 {
     font-size: 28px;
     color: gold;
 }
 
-/* SUBTITLE */
 .subtitle {
     color: #ccc;
     margin-top: 5px;
     font-size: 14px;
 }
 
-/* DIVIDER */
 .divider {
     height: 1px;
     background: #0f0f0f33;
     margin: 20px 0;
 }
 
-/* TEXT */
 .profile-card p {
     color: #ddd;
     line-height: 1.7;
 }
 
-/* HEADINGS */
 .profile-card h3 {
     color: gold;
     margin-top: 10px;
 }
 
-/* LIST */
 .profile-card ul {
     list-style: none;
     margin-top: 10px;
@@ -291,7 +285,6 @@ body {
     margin: 8px 0;
 }
 
-/* CONTACT */
 .contact {
     font-size: 18px;
     font-weight: bold;
@@ -300,7 +293,38 @@ body {
 
 /* MOBILE */
 @media (max-width: 768px) {
+    nav a {
+        display: block;
+        margin: 8px 0;
+    }
+
+    .hero h2 {
+        font-size: 28px;
+    }
+
     .profile-card {
         padding: 25px;
     }
+
+    .hero button.prev,
+    .hero button.next {
+        font-size: 24px;
+        padding: 8px 12px;
+    }
+}
+
+/* For smooth fade-in/fade-out slideshow */
+.hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: inherit;
+    background-size: cover;
+    background-position: center;
+    z-index: -1;
+    opacity: 1;
+    transition: opacity 1s ease-in-out;
 }
