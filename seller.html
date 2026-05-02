@@ -3,7 +3,10 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
     <title>Seller Panel</title>
 
     <style>
@@ -14,243 +17,370 @@
         }
 
         body {
+
             font-family: Arial;
-            background: linear-gradient(135deg, #111, #1f1f1f);
+
+            background:
+                linear-gradient(135deg, #111, #1f1f1f);
+
             color: white;
+
             min-height: 100vh;
+
             text-align: center;
+
             padding: 20px;
         }
 
         h1 {
+
             margin-bottom: 20px;
+
             color: orange;
+
+            font-size: 40px;
         }
 
         .panel {
+
             max-width: 500px;
+
             margin: auto;
-            background: rgba(255, 255, 255, 0.08);
+
+            background:
+                rgba(255, 255, 255, 0.08);
+
             padding: 25px;
+
             border-radius: 20px;
         }
 
         input,
         select {
+
             width: 100%;
+
             padding: 12px;
+
             margin: 10px 0;
+
             border: none;
+
             border-radius: 10px;
+
+            font-size: 16px;
         }
 
         button {
+
             padding: 12px 20px;
+
             border: none;
+
             border-radius: 10px;
+
             background: orange;
+
             font-weight: bold;
+
             cursor: pointer;
+
+            font-size: 16px;
+        }
+
+        button:hover {
+
+            background: gold;
         }
 
         #list {
+
             margin-top: 30px;
+
             display: flex;
+
             flex-wrap: wrap;
+
             justify-content: center;
+
             gap: 20px;
         }
 
         .card {
-            width: 220px;
+
+            width: 230px;
+
             background: white;
+
             color: black;
+
             border-radius: 15px;
+
             overflow: hidden;
+
             padding-bottom: 15px;
         }
 
         .card img {
+
             width: 100%;
+
             height: 180px;
+
             object-fit: cover;
         }
 
-        .delete-btn {
-            background: red;
-            color: white;
+        .card h3 {
+
             margin-top: 10px;
+        }
+
+        .delete-btn {
+
+            background: red;
+
+            color: white;
+
+            margin-top: 10px;
+        }
+
+        .delete-btn:hover {
+
+            background: darkred;
         }
     </style>
 </head>
-<script type="module">
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import {
-getFirestore,
-collection,
-addDoc,
-getDocs,
-deleteDoc,
-doc
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-const firebaseConfig = {
-
-apiKey: "AIzaSyDZR-nmPJp_euygcupVBGk41-3sVUxf-YQ",
-
-authDomain: "shiva-event.firebaseapp.com",
-
-projectId: "shiva-event",
-
-storageBucket: "shiva-event.firebasestorage.app",
-
-messagingSenderId: "256536122488",
-
-appId: "1:256536122488:web:d42712bc049755c537498d"
-};
-
-const app = initializeApp(firebaseConfig);
-
-const db = getFirestore(app);
-
-window.db = db;
-window.collection = collection;
-window.addDoc = addDoc;
-window.getDocs = getDocs;
-window.deleteDoc = deleteDoc;
-window.doc = doc;
-
-</script>
 <body>
 
     <h1>Seller Panel 🏪</h1>
 
     <div class="panel">
 
-        <input id="name" placeholder="Decoration Name">
+        <input id="name"
+            placeholder="Decoration Name">
 
-        <input id="price" type="number" placeholder="Price">
+        <input id="price"
+            type="number"
+            placeholder="Price">
 
         <select id="category">
+
             <option>Jaymal Stage</option>
+
             <option>Balloon Decoration</option>
+
             <option>Haldi Decoration</option>
+
             <option>Mehndi Setup</option>
+
             <option>Birthday Decoration</option>
+
             <option>Anniversary Decoration</option>
+
             <option>Wedding Stage</option>
+
             <option>Car Decoration</option>
+
             <option>Entry Gate Decoration</option>
+
             <option>Mandap Decoration</option>
+
             <option>Flower Decoration</option>
+
             <option>Room Decoration</option>
+
             <option>Baby Shower Decoration</option>
+
             <option>LED Light Decoration</option>
+
             <option>DJ Setup</option>
+
             <option>Photography Setup</option>
+
             <option>Catering Setup</option>
+
             <option>Selfie Point</option>
+
         </select>
 
-        <input type="file" id="image">
+        <input type="file"
+            id="image">
 
-        <button onclick="add()">Add Product</button>
+        <button onclick="add()">
+            Add Product
+        </button>
 
     </div>
 
     <div id="list"></div>
 
-    <script>
+    <script type="module">
 
-        function add() {
+        import {
+            initializeApp
+        }
+        from
+        "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 
-            let n = document.getElementById("name").value.trim();
-            let p = document.getElementById("price").value.trim();
-            let c = document.getElementById("category").value;
-            let file = document.getElementById("image").files[0];
+        import {
+
+            getFirestore,
+
+            collection,
+
+            addDoc,
+
+            getDocs,
+
+            deleteDoc,
+
+            doc
+
+        }
+
+        from
+
+        "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+        const firebaseConfig = {
+
+            apiKey:
+                "AIzaSyDZR-nmPJp_euygcupVBGk41-3sVUxf-YQ",
+
+            authDomain:
+                "shiva-event.firebaseapp.com",
+
+            projectId:
+                "shiva-event",
+
+            storageBucket:
+                "shiva-event.firebasestorage.app",
+
+            messagingSenderId:
+                "256536122488",
+
+            appId:
+                "1:256536122488:web:d42712bc049755c537498d"
+        };
+
+        const app =
+            initializeApp(firebaseConfig);
+
+        const db =
+            getFirestore(app);
+
+        async function add() {
+
+            let n =
+                document.getElementById("name").value;
+
+            let p =
+                document.getElementById("price").value;
+
+            let c =
+                document.getElementById("category").value;
+
+            let file =
+                document.getElementById("image").files[0];
 
             if (!n || !p || !file) {
-                alert("Sab fill karo!");
+
+                alert("Sab fill karo");
+
                 return;
             }
 
-            let reader = new FileReader();
+            let reader =
+                new FileReader();
 
-            reader.onload = function (e) {
+            reader.onload =
+                async function (e) {
 
-                let img = new Image();
-                img.src = e.target.result;
+                    await addDoc(
 
-                img.onload = function () {
+                        collection(db, "products"),
 
-                    let canvas = document.createElement("canvas");
-                    let ctx = canvas.getContext("2d");
+                        {
 
-                    canvas.width = 300;
-                    canvas.height = 300;
+                            name: n,
 
-                    ctx.drawImage(img, 0, 0, 300, 300);
+                            price: p,
 
-                    let smallImage = canvas.toDataURL("image/jpeg", 0.5);
+                            category: c,
 
-                    let products = JSON.parse(localStorage.getItem("products")) || [];
+                            image: e.target.result
+                        }
+                    );
 
-                    products.push({
-                        name: n,
-                        price: p,
-                        category: c,
-                        image: smallImage
-                    });
-
-                    localStorage.setItem("products", JSON.stringify(products));
-
-                    alert("Product Added ✅");
+                    alert("Uploaded ✅");
 
                     document.getElementById("name").value = "";
+
                     document.getElementById("price").value = "";
+
                     document.getElementById("image").value = "";
 
                     show();
-                }
-            }
+                };
 
             reader.readAsDataURL(file);
         }
 
-        function show() {
+        window.add = add;
 
-            let products = JSON.parse(localStorage.getItem("products")) || [];
+        async function show() {
 
-            let list = document.getElementById("list");
+            let list =
+                document.getElementById("list");
 
             list.innerHTML = "";
 
-            products.forEach((p, i) => {
+            let querySnapshot =
+                await getDocs(
+                    collection(db, "products")
+                );
+
+            querySnapshot.forEach((docSnap) => {
+
+                let p =
+                    docSnap.data();
 
                 list.innerHTML += `
+
                 <div class="card">
+
                     <img src="${p.image}">
+
                     <h3>${p.name}</h3>
+
                     <p>${p.category}</p>
+
                     <h2>₹${p.price}</h2>
-                    <button class="delete-btn" onclick="del(${i})">Delete</button>
-                </div>`;
+
+                    <button
+                    class="delete-btn"
+
+                    onclick="delProduct('${docSnap.id}')">
+
+                    Delete
+
+                    </button>
+
+                </div>
+                `;
             });
         }
 
-        function del(i) {
+        window.delProduct =
+            async function (id) {
 
-            let products = JSON.parse(localStorage.getItem("products"));
+                await deleteDoc(
+                    doc(db, "products", id)
+                );
 
-            products.splice(i, 1);
-
-            localStorage.setItem("products", JSON.stringify(products));
-
-            show();
-        }
+                show();
+            }
 
         show();
 
