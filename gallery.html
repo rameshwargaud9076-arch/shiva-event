@@ -3,245 +3,437 @@
 
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0">
+
     <title>Customer</title>
 
     <style>
         body {
+
             font-family: Arial;
+
             background-image: url("custumar.png");
+
             background-size: cover;
+
             background-position: center;
+
             background-repeat: no-repeat;
+
             background-attachment: fixed;
+
             margin: 0;
+
             text-align: center;
+
             min-height: 100vh;
         }
 
         body::before {
+
             content: "";
+
             position: fixed;
+
             inset: 0;
+
             background: rgba(0, 0, 0, 0.5);
+
             z-index: -1;
         }
 
         h1 {
+
             color: white;
+
             padding-top: 20px;
+
+            font-size: 45px;
         }
 
         .category-box {
+
             display: flex;
+
             flex-wrap: wrap;
+
             justify-content: center;
+
             gap: 15px;
+
             padding: 20px;
         }
 
         .cat {
+
             width: 180px;
+
             height: 130px;
+
             border-radius: 15px;
+
             display: flex;
+
             align-items: center;
+
             justify-content: center;
+
             text-align: center;
+
             color: white;
+
             font-size: 18px;
+
             font-weight: bold;
+
             cursor: pointer;
-            background: linear-gradient(45deg, orange, deeppink);
+
+            background:
+                linear-gradient(45deg,
+                    orange,
+                    deeppink);
+
             transition: 0.3s;
         }
 
         .cat:hover {
+
             transform: scale(1.08);
         }
 
         #products {
+
             display: flex;
+
             flex-wrap: wrap;
+
             justify-content: center;
+
             gap: 20px;
+
             padding: 20px;
         }
 
         .card {
+
             background: white;
+
             width: 220px;
+
             border-radius: 15px;
+
             overflow: hidden;
+
             cursor: pointer;
         }
 
         .card img {
+
             width: 100%;
+
             height: 180px;
+
             object-fit: cover;
         }
 
+        .card h3 {
+
+            margin: 10px 0;
+        }
+
         .popup {
+
             position: fixed;
+
             top: 50%;
+
             left: 50%;
-            transform: translate(-50%, -50%);
+
+            transform:
+                translate(-50%, -50%);
+
             background: white;
+
             padding: 20px;
-            border-radius: 10px;
+
+            border-radius: 15px;
+
             display: none;
-            width: 300px;
+
+            width: 320px;
+
             z-index: 1000;
         }
 
         button {
+
             padding: 10px 15px;
+
             border: none;
+
             background: orange;
+
             border-radius: 10px;
+
             cursor: pointer;
+
+            font-weight: bold;
         }
 
         textarea {
+
             width: 100%;
+
             height: 80px;
         }
     </style>
 </head>
-<script type="module">
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-import {
-getFirestore,
-collection,
-addDoc,
-getDocs,
-deleteDoc,
-doc
-}
-from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-const firebaseConfig = {
-
-apiKey: "AIzaSyDZR-nmPJp_euygcupVBGk41-3sVUxf-YQ",
-
-authDomain: "shiva-event.firebaseapp.com",
-
-projectId: "shiva-event",
-
-storageBucket: "shiva-event.firebasestorage.app",
-
-messagingSenderId: "256536122488",
-
-appId: "1:256536122488:web:d42712bc049755c537498d"
-};
-
-const app = initializeApp(firebaseConfig);
-
-const db = getFirestore(app);
-
-window.db = db;
-window.collection = collection;
-window.addDoc = addDoc;
-window.getDocs = getDocs;
-window.deleteDoc = deleteDoc;
-window.doc = doc;
-
-</script>
 <body>
 
     <h1>SHIVA EVENT</h1>
 
     <div class="category-box">
 
-        <div class="cat" onclick="loadCat('Jaymal Stage')">Jaymal Stage</div>
-        <div class="cat" onclick="loadCat('Balloon Decoration')">Balloon Decoration</div>
-        <div class="cat" onclick="loadCat('Haldi Decoration')">Haldi Decoration</div>
-        <div class="cat" onclick="loadCat('Mehndi Setup')">Mehndi Setup</div>
-        <div class="cat" onclick="loadCat('Birthday Decoration')">Birthday Decoration</div>
-        <div class="cat" onclick="loadCat('Anniversary Decoration')">Anniversary Decoration</div>
-        <div class="cat" onclick="loadCat('Wedding Stage')">Wedding Stage</div>
-        <div class="cat" onclick="loadCat('Car Decoration')">Car Decoration</div>
-        <div class="cat" onclick="loadCat('Mandap Decoration')">Mandap Decoration</div>
-        <div class="cat" onclick="loadCat('Photography Setup')">Photography</div>
-        <div class="cat" onclick="loadCat('DJ Setup')">DJ Setup</div>
-        <div class="cat" onclick="loadCat('Selfie Point')">Selfie Point</div>
+        <div class="cat"
+            onclick="loadCat('Jaymal Stage')">
+            Jaymal Stage
+        </div>
+
+        <div class="cat"
+            onclick="loadCat('Balloon Decoration')">
+            Balloon Decoration
+        </div>
+
+        <div class="cat"
+            onclick="loadCat('Haldi Decoration')">
+            Haldi Decoration
+        </div>
+
+        <div class="cat"
+            onclick="loadCat('Mehndi Setup')">
+            Mehndi Setup
+        </div>
+
+        <div class="cat"
+            onclick="loadCat('Birthday Decoration')">
+            Birthday Decoration
+        </div>
+
+        <div class="cat"
+            onclick="loadCat('Anniversary Decoration')">
+            Anniversary Decoration
+        </div>
+
+        <div class="cat"
+            onclick="loadCat('Wedding Stage')">
+            Wedding Stage
+        </div>
+
+        <div class="cat"
+            onclick="loadCat('Car Decoration')">
+            Car Decoration
+        </div>
+
+        <div class="cat"
+            onclick="loadCat('Mandap Decoration')">
+            Mandap Decoration
+        </div>
+
+        <div class="cat"
+            onclick="loadCat('Photography Setup')">
+            Photography
+        </div>
+
+        <div class="cat"
+            onclick="loadCat('DJ Setup')">
+            DJ Setup
+        </div>
+
+        <div class="cat"
+            onclick="loadCat('Selfie Point')">
+            Selfie Point
+        </div>
 
     </div>
 
     <div id="products"></div>
 
-    <div id="popup" class="popup"></div>
+    <div id="popup"
+        class="popup"></div>
 
-    <script>
+    <script type="module">
+
+        import {
+            initializeApp
+        }
+
+        from
+
+        "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+        import {
+
+            getFirestore,
+
+            collection,
+
+            getDocs
+
+        }
+
+        from
+
+        "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+        const firebaseConfig = {
+
+            apiKey:
+                "AIzaSyDZR-nmPJp_euygcupVBGk41-3sVUxf-YQ",
+
+            authDomain:
+                "shiva-event.firebaseapp.com",
+
+            projectId:
+                "shiva-event",
+
+            storageBucket:
+                "shiva-event.firebasestorage.app",
+
+            messagingSenderId:
+                "256536122488",
+
+            appId:
+                "1:256536122488:web:d42712bc049755c537498d"
+        };
+
+        const app =
+            initializeApp(firebaseConfig);
+
+        const db =
+            getFirestore(app);
+
+        let allProducts = [];
 
         let selectedProduct = null;
 
-        function loadCat(cat) {
+        async function loadCat(cat) {
 
-            let data = JSON.parse(localStorage.getItem("products")) || [];
-
-            let products = document.getElementById("products");
+            let products =
+                document.getElementById("products");
 
             products.innerHTML = "";
 
-            data.forEach((p, i) => {
+            let querySnapshot =
+                await getDocs(
+                    collection(db, "products")
+                );
+
+            allProducts = [];
+
+            querySnapshot.forEach((docSnap) => {
+
+                allProducts.push(docSnap.data());
+            });
+
+            allProducts.forEach((p, i) => {
 
                 if (p.category !== cat) return;
 
                 products.innerHTML += `
-                <div class="card" onclick="selectProduct(${i})">
+
+                <div class="card"
+                onclick="selectProduct(${i})">
+
                     <img src="${p.image}">
+
                     <h3>${p.name}</h3>
+
                     <p>₹${p.price}</p>
-                </div>`;
-            })
+
+                </div>
+                `;
+            });
         }
+
+        window.loadCat = loadCat;
 
         function selectProduct(i) {
 
-            let data = JSON.parse(localStorage.getItem("products"));
+            selectedProduct =
+                allProducts[i];
 
-            selectedProduct = data[i];
-
-            let popup = document.getElementById("popup");
+            let popup =
+                document.getElementById("popup");
 
             popup.style.display = "block";
 
             popup.innerHTML = `
+
             <h2>${selectedProduct.name}</h2>
+
             <h3>₹${selectedProduct.price}</h3>
 
-            <button onclick="buyNow()">Book Now</button>
+            <button onclick="buyNow()">
+            Book Now
+            </button>
 
             <br><br>
 
-            <a href="${selectedProduct.image}" download="${selectedProduct.name}.jpg">
-                <button>Download Image</button>
+            <a href="${selectedProduct.image}"
+            download="${selectedProduct.name}.jpg">
+
+            <button>
+            Download Image
+            </button>
+
             </a>
 
             <br><br>
 
-            <button onclick="closePop()">Close</button>`;
+            <button onclick="closePop()">
+            Close
+            </button>
+            `;
         }
+
+        window.selectProduct = selectProduct;
 
         function buyNow() {
 
-            let popup = document.getElementById("popup");
+            let popup =
+                document.getElementById("popup");
 
             popup.innerHTML = `
+
             <h2>Enter Address</h2>
 
-            <button onclick="autoAddress()">Use Current Location</button>
+            <button onclick="autoAddress()">
+
+            Use Current Location
+
+            </button>
+
             <br><br>
 
-            <textarea id="addr" placeholder="Enter address"></textarea>
+            <textarea id="addr"
+            placeholder="Enter address">
+
+            </textarea>
+
             <br><br>
 
-            <button onclick="confirmOrder()">Confirm Booking</button>`;
+            <button onclick="confirmOrder()">
+
+            Confirm Booking
+
+            </button>
+            `;
         }
+
+        window.buyNow = buyNow;
 
         function autoAddress() {
 
@@ -250,30 +442,58 @@ window.doc = doc;
                 navigator.geolocation.getCurrentPosition(pos => {
 
                     document.getElementById("addr").value =
-                        pos.coords.latitude + "," + pos.coords.longitude;
-                })
+
+                        pos.coords.latitude +
+
+                        "," +
+
+                        pos.coords.longitude;
+                });
             }
         }
 
+        window.autoAddress = autoAddress;
+
         function confirmOrder() {
 
-            let address = document.getElementById("addr").value;
+            let address =
+                document.getElementById("addr").value;
 
             if (!address) {
+
                 alert("Address dalo!");
+
                 return;
             }
 
-            let msg = `🎉 SHIVA EVENT BOOKING\n\nDecoration: ${selectedProduct.name}\nPrice: ₹${selectedProduct.price}\nAddress: ${address}`;
+            let msg =
 
-            window.open("https://wa.me/919076792223?text=" + encodeURIComponent(msg));
+                `🎉 SHIVA EVENT BOOKING
+
+Decoration: ${selectedProduct.name}
+
+Price: ₹${selectedProduct.price}
+
+Address: ${address}`;
+
+            window.open(
+
+                "https://wa.me/919076792223?text=" +
+
+                encodeURIComponent(msg)
+            );
 
             closePop();
         }
 
+        window.confirmOrder = confirmOrder;
+
         function closePop() {
+
             document.getElementById("popup").style.display = "none";
         }
+
+        window.closePop = closePop;
 
     </script>
 
