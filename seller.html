@@ -1,4 +1,4 @@
-    <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -8,48 +8,53 @@
 
 <style>
 body{
-    font-family:Arial;
-    background:linear-gradient(135deg,#111,#1f1f1f);
-    color:white;
-    text-align:center;
-    padding:20px;
+font-family:Arial;
+background:linear-gradient(135deg,#111,#1f1f1f);
+color:white;
+text-align:center;
+padding:20px;
 }
 
 .panel{
-    max-width:500px;
-    margin:auto;
-    background:rgba(255,255,255,0.08);
-    padding:20px;
-    border-radius:15px;
+max-width:500px;
+margin:auto;
+background:rgba(255,255,255,0.08);
+padding:20px;
+border-radius:15px;
 }
 
 input,select{
-    width:100%;
-    padding:10px;
-    margin:8px 0;
-    border-radius:8px;
-    border:none;
+width:100%;
+padding:10px;
+margin:8px 0;
+border-radius:8px;
+border:none;
 }
 
 button{
-    padding:10px 15px;
-    background:orange;
-    border:none;
-    border-radius:8px;
-    cursor:pointer;
+padding:10px 15px;
+background:orange;
+border:none;
+border-radius:8px;
+cursor:pointer;
 }
 
 .card{
-    background:white;
-    color:black;
-    margin:10px;
-    padding:10px;
-    border-radius:10px;
-    width:220px;
+background:white;
+color:black;
+margin:10px;
+padding:10px;
+border-radius:10px;
+width:220px;
 }
 
 img{width:100%;height:150px;object-fit:cover;}
-#list{display:flex;flex-wrap:wrap;justify-content:center;}
+
+#list{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+}
 </style>
 </head>
 
@@ -58,7 +63,8 @@ img{width:100%;height:150px;object-fit:cover;}
 <h1>Seller Panel 🏪</h1>
 
 <div class="panel">
-<input id="name" placeholder="Name">
+
+<input id="name" placeholder="Decoration Name">
 <input id="price" type="number" placeholder="Price">
 
 <select id="category">
@@ -66,13 +72,20 @@ img{width:100%;height:150px;object-fit:cover;}
 <option>Balloon Decoration</option>
 <option>Haldi Decoration</option>
 <option>Mehndi Setup</option>
+<option>Birthday Decoration</option>
+<option>Anniversary Decoration</option>
 <option>Wedding Stage</option>
-<option>DJ Setup</option>
+<option>Car Decoration</option>
+<option>Mandap Decoration</option>
 <option>Photography Setup</option>
+<option>DJ Setup</option>
+<option>Selfie Point</option>
 </select>
 
 <input type="file" id="image">
-<button onclick="add()">Add Product</button>
+
+<button onclick="addProduct()">Add Product</button>
+
 </div>
 
 <div id="list"></div>
@@ -95,7 +108,7 @@ appId: "1:256536122488:web:d42712bc049755c537498d"
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-async function add(){
+window.addProduct = function(){
 
 let n = document.getElementById("name").value;
 let p = document.getElementById("price").value;
@@ -119,13 +132,12 @@ image:e.target.result
 });
 
 alert("Uploaded ✅");
+
 show();
 };
 
 reader.readAsDataURL(file);
 }
-
-window.add = add;
 
 async function show(){
 
