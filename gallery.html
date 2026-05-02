@@ -22,26 +22,39 @@ background:rgba(0,0,0,0.6);
 z-index:-1;
 }
 
+h1{font-size:40px;}
+
 .cat{
 display:inline-block;
-margin:10px;
-padding:15px;
+margin:8px;
+padding:12px 15px;
 background:linear-gradient(45deg,orange,deeppink);
 border-radius:10px;
 cursor:pointer;
 }
 
+#products{
+display:flex;
+flex-wrap:wrap;
+justify-content:center;
+gap:15px;
+margin-top:20px;
+}
+
 .card{
 background:white;
 color:black;
-margin:10px;
-padding:10px;
-border-radius:10px;
 width:200px;
-display:inline-block;
+border-radius:10px;
+overflow:hidden;
+cursor:pointer;
 }
 
-img{width:100%;height:150px;object-fit:cover;}
+.card img{
+width:100%;
+height:150px;
+object-fit:cover;
+}
 
 .popup{
 position:fixed;
@@ -53,6 +66,7 @@ color:black;
 padding:20px;
 display:none;
 border-radius:10px;
+width:300px;
 }
 </style>
 </head>
@@ -61,9 +75,14 @@ border-radius:10px;
 
 <h1>SHIVA EVENT</h1>
 
-<div class="cat" onclick="load('Wedding Stage')">Wedding</div>
-<div class="cat" onclick="load('Balloon Decoration')">Balloon</div>
-<div class="cat" onclick="load('DJ Setup')">DJ</div>
+<!-- CATEGORY FIXED -->
+<div class="cat" onclick="load('Jaymal Stage')">Jaymal Stage</div>
+<div class="cat" onclick="load('Balloon Decoration')">Balloon Decoration</div>
+<div class="cat" onclick="load('Haldi Decoration')">Haldi Decoration</div>
+<div class="cat" onclick="load('Mehndi Setup')">Mehndi Setup</div>
+<div class="cat" onclick="load('Wedding Stage')">Wedding Stage</div>
+<div class="cat" onclick="load('DJ Setup')">DJ Setup</div>
+<div class="cat" onclick="load('Photography Setup')">Photography</div>
 
 <div id="products"></div>
 
@@ -87,24 +106,26 @@ appId: "1:256536122488:web:d42712bc049755c537498d"
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
 
-let all = [];
+let allProducts = [];
 let selected = null;
 
-window.load = async function(cat){
+async function load(cat){
 
 let snap = await getDocs(collection(db,"products"));
-all = [];
 
-document.getElementById("products").innerHTML="";
+allProducts = [];
+let box = document.getElementById("products");
+box.innerHTML = "";
 
 snap.forEach(d=>{
 let p = d.data();
-all.push(p);
+p.id = d.id;
+allProducts.push(p);
 
-if(p.category == cat){
+if(p.category === cat){
 
-document.getElementById("products").innerHTML += `
-<div class="card" onclick="openP('${p.name}')">
+box.innerHTML += `
+<div class="card" onclick="openP('${p.id}')">
 <img src="${p.image}">
 <h3>${p.name}</h3>
 <p>₹${p.price}</p>
@@ -114,9 +135,11 @@ document.getElementById("products").innerHTML += `
 });
 }
 
-window.openP = function(name){
+window.load = load;
 
-selected = all.find(p=>p.name==name);
+window.openP = function(id){
+
+selected = allProducts.find(p=>p.id===id);
 
 document.getElementById("popup").style.display="block";
 
@@ -126,7 +149,9 @@ document.getElementById("popup").innerHTML=`
 
 <textarea id="addr" placeholder="Address"></textarea>
 
-<button onclick="book()">Book</button>
+<br><br>
+
+<button onclick="book()">Book Now</button>
 <button onclick="closeP()">Close</button>
 `;
 }
@@ -135,7 +160,12 @@ window.book = function(){
 
 let a = document.getElementById("addr").value;
 
-let msg = `Booking:\n${selected.name}\n₹${selected.price}\n${a}`;
+if(!a){
+alert("Address daal");
+return;
+}
+
+let msg = `SHIVA EVENT BOOKING\n\n${selected.name}\n₹${selected.price}\n${a}`;
 
 window.open("https://wa.me/919076792223?text="+encodeURIComponent(msg));
 }
