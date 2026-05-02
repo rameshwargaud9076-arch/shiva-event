@@ -109,7 +109,47 @@
         }
     </style>
 </head>
+<script type="module">
 
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+
+import {
+getFirestore,
+collection,
+addDoc,
+getDocs,
+deleteDoc,
+doc
+}
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+
+const firebaseConfig = {
+
+apiKey: "AIzaSyDZR-nmPJp_euygcupVBGk41-3sVUxf-YQ",
+
+authDomain: "shiva-event.firebaseapp.com",
+
+projectId: "shiva-event",
+
+storageBucket: "shiva-event.firebasestorage.app",
+
+messagingSenderId: "256536122488",
+
+appId: "1:256536122488:web:d42712bc049755c537498d"
+};
+
+const app = initializeApp(firebaseConfig);
+
+const db = getFirestore(app);
+
+window.db = db;
+window.collection = collection;
+window.addDoc = addDoc;
+window.getDocs = getDocs;
+window.deleteDoc = deleteDoc;
+window.doc = doc;
+
+</script>
 <body>
 
     <h1>SHIVA EVENT</h1>
