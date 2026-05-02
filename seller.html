@@ -1,391 +1,163 @@
-<!DOCTYPE html>
+    <!DOCTYPE html>
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Seller Panel</title>
 
-    <meta name="viewport"
-        content="width=device-width, initial-scale=1.0">
+<style>
+body{
+    font-family:Arial;
+    background:linear-gradient(135deg,#111,#1f1f1f);
+    color:white;
+    text-align:center;
+    padding:20px;
+}
 
-    <title>Seller Panel</title>
+.panel{
+    max-width:500px;
+    margin:auto;
+    background:rgba(255,255,255,0.08);
+    padding:20px;
+    border-radius:15px;
+}
 
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+input,select{
+    width:100%;
+    padding:10px;
+    margin:8px 0;
+    border-radius:8px;
+    border:none;
+}
 
-        body {
+button{
+    padding:10px 15px;
+    background:orange;
+    border:none;
+    border-radius:8px;
+    cursor:pointer;
+}
 
-            font-family: Arial;
+.card{
+    background:white;
+    color:black;
+    margin:10px;
+    padding:10px;
+    border-radius:10px;
+    width:220px;
+}
 
-            background:
-                linear-gradient(135deg, #111, #1f1f1f);
-
-            color: white;
-
-            min-height: 100vh;
-
-            text-align: center;
-
-            padding: 20px;
-        }
-
-        h1 {
-
-            margin-bottom: 20px;
-
-            color: orange;
-
-            font-size: 40px;
-        }
-
-        .panel {
-
-            max-width: 500px;
-
-            margin: auto;
-
-            background:
-                rgba(255, 255, 255, 0.08);
-
-            padding: 25px;
-
-            border-radius: 20px;
-        }
-
-        input,
-        select {
-
-            width: 100%;
-
-            padding: 12px;
-
-            margin: 10px 0;
-
-            border: none;
-
-            border-radius: 10px;
-
-            font-size: 16px;
-        }
-
-        button {
-
-            padding: 12px 20px;
-
-            border: none;
-
-            border-radius: 10px;
-
-            background: orange;
-
-            font-weight: bold;
-
-            cursor: pointer;
-
-            font-size: 16px;
-        }
-
-        button:hover {
-
-            background: gold;
-        }
-
-        #list {
-
-            margin-top: 30px;
-
-            display: flex;
-
-            flex-wrap: wrap;
-
-            justify-content: center;
-
-            gap: 20px;
-        }
-
-        .card {
-
-            width: 230px;
-
-            background: white;
-
-            color: black;
-
-            border-radius: 15px;
-
-            overflow: hidden;
-
-            padding-bottom: 15px;
-        }
-
-        .card img {
-
-            width: 100%;
-
-            height: 180px;
-
-            object-fit: cover;
-        }
-
-        .card h3 {
-
-            margin-top: 10px;
-        }
-
-        .delete-btn {
-
-            background: red;
-
-            color: white;
-
-            margin-top: 10px;
-        }
-
-        .delete-btn:hover {
-
-            background: darkred;
-        }
-    </style>
+img{width:100%;height:150px;object-fit:cover;}
+#list{display:flex;flex-wrap:wrap;justify-content:center;}
+</style>
 </head>
 
 <body>
 
-    <h1>Seller Panel 🏪</h1>
+<h1>Seller Panel 🏪</h1>
+
+<div class="panel">
+<input id="name" placeholder="Name">
+<input id="price" type="number" placeholder="Price">
 
-    <div class="panel">
+<select id="category">
+<option>Jaymal Stage</option>
+<option>Balloon Decoration</option>
+<option>Haldi Decoration</option>
+<option>Mehndi Setup</option>
+<option>Wedding Stage</option>
+<option>DJ Setup</option>
+<option>Photography Setup</option>
+</select>
 
-        <input id="name"
-            placeholder="Decoration Name">
+<input type="file" id="image">
+<button onclick="add()">Add Product</button>
+</div>
 
-        <input id="price"
-            type="number"
-            placeholder="Price">
+<div id="list"></div>
 
-        <select id="category">
+<script type="module">
 
-            <option>Jaymal Stage</option>
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getFirestore, collection, addDoc, getDocs, deleteDoc, doc } 
+from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 
-            <option>Balloon Decoration</option>
+const firebaseConfig = {
+apiKey: "AIzaSyDZR-nmPJp_euygcupVBGk41-3sVUxf-YQ",
+authDomain: "shiva-event.firebaseapp.com",
+projectId: "shiva-event",
+storageBucket: "shiva-event.appspot.com",
+messagingSenderId: "256536122488",
+appId: "1:256536122488:web:d42712bc049755c537498d"
+};
 
-            <option>Haldi Decoration</option>
+const app = initializeApp(firebaseConfig);
+const db = getFirestore(app);
 
-            <option>Mehndi Setup</option>
+async function add(){
 
-            <option>Birthday Decoration</option>
+let n = document.getElementById("name").value;
+let p = document.getElementById("price").value;
+let c = document.getElementById("category").value;
+let file = document.getElementById("image").files[0];
 
-            <option>Anniversary Decoration</option>
+if(!n || !p || !file){
+alert("Fill all fields");
+return;
+}
 
-            <option>Wedding Stage</option>
+let reader = new FileReader();
 
-            <option>Car Decoration</option>
+reader.onload = async function(e){
 
-            <option>Entry Gate Decoration</option>
+await addDoc(collection(db,"products"),{
+name:n,
+price:p,
+category:c,
+image:e.target.result
+});
 
-            <option>Mandap Decoration</option>
+alert("Uploaded ✅");
+show();
+};
 
-            <option>Flower Decoration</option>
+reader.readAsDataURL(file);
+}
 
-            <option>Room Decoration</option>
+window.add = add;
 
-            <option>Baby Shower Decoration</option>
+async function show(){
 
-            <option>LED Light Decoration</option>
+let list = document.getElementById("list");
+list.innerHTML="";
 
-            <option>DJ Setup</option>
+let snap = await getDocs(collection(db,"products"));
 
-            <option>Photography Setup</option>
+snap.forEach((d)=>{
 
-            <option>Catering Setup</option>
+let p = d.data();
 
-            <option>Selfie Point</option>
+list.innerHTML += `
+<div class="card">
+<img src="${p.image}">
+<h3>${p.name}</h3>
+<p>${p.category}</p>
+<h2>₹${p.price}</h2>
+<button onclick="del('${d.id}')">Delete</button>
+</div>
+`;
+});
+}
 
-        </select>
+window.del = async function(id){
+await deleteDoc(doc(db,"products",id));
+show();
+}
 
-        <input type="file"
-            id="image">
+show();
 
-        <button onclick="add()">
-            Add Product
-        </button>
-
-    </div>
-
-    <div id="list"></div>
-
-    <script type="module">
-
-        import {
-            initializeApp
-        }
-        from
-        "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-
-        import {
-
-            getFirestore,
-
-            collection,
-
-            addDoc,
-
-            getDocs,
-
-            deleteDoc,
-
-            doc
-
-        }
-
-        from
-
-        "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-
-        const firebaseConfig = {
-
-            apiKey:
-                "AIzaSyDZR-nmPJp_euygcupVBGk41-3sVUxf-YQ",
-
-            authDomain:
-                "shiva-event.firebaseapp.com",
-
-            projectId:
-                "shiva-event",
-
-            storageBucket:
-                "shiva-event.firebasestorage.app",
-
-            messagingSenderId:
-                "256536122488",
-
-            appId:
-                "1:256536122488:web:d42712bc049755c537498d"
-        };
-
-        const app =
-            initializeApp(firebaseConfig);
-
-        const db =
-            getFirestore(app);
-
-        async function add() {
-
-            let n =
-                document.getElementById("name").value;
-
-            let p =
-                document.getElementById("price").value;
-
-            let c =
-                document.getElementById("category").value;
-
-            let file =
-                document.getElementById("image").files[0];
-
-            if (!n || !p || !file) {
-
-                alert("Sab fill karo");
-
-                return;
-            }
-
-            let reader =
-                new FileReader();
-
-            reader.onload =
-                async function (e) {
-
-                    await addDoc(
-
-                        collection(db, "products"),
-
-                        {
-
-                            name: n,
-
-                            price: p,
-
-                            category: c,
-
-                            image: e.target.result
-                        }
-                    );
-
-                    alert("Uploaded ✅");
-
-                    document.getElementById("name").value = "";
-
-                    document.getElementById("price").value = "";
-
-                    document.getElementById("image").value = "";
-
-                    show();
-                };
-
-            reader.readAsDataURL(file);
-        }
-
-        window.add = add;
-
-        async function show() {
-
-            let list =
-                document.getElementById("list");
-
-            list.innerHTML = "";
-
-            let querySnapshot =
-                await getDocs(
-                    collection(db, "products")
-                );
-
-            querySnapshot.forEach((docSnap) => {
-
-                let p =
-                    docSnap.data();
-
-                list.innerHTML += `
-
-                <div class="card">
-
-                    <img src="${p.image}">
-
-                    <h3>${p.name}</h3>
-
-                    <p>${p.category}</p>
-
-                    <h2>₹${p.price}</h2>
-
-                    <button
-                    class="delete-btn"
-
-                    onclick="delProduct('${docSnap.id}')">
-
-                    Delete
-
-                    </button>
-
-                </div>
-                `;
-            });
-        }
-
-        window.delProduct =
-            async function (id) {
-
-                await deleteDoc(
-                    doc(db, "products", id)
-                );
-
-                show();
-            }
-
-        show();
-
-    </script>
+</script>
 
 </body>
-
 </html>
